@@ -35,51 +35,24 @@ class GraphView extends Component {
     // ctx.fillStyle = '#ccff99';
     // ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
-    // for (var i = 0; i < 30; i++) {
-    //   for (var j = 0; j < 30; j++) {
-    //     ctx.fillStyle =
-    //       'rgb(' +
-    //       Math.floor(300 - 5 * i) +
-    //       ', ' +
-    //       Math.floor(255 - 10 * j) +
-    //       ', 0)';
-    //     ctx.fillRect(j * 50, i * 25, 25, 25);
-    //   }
-    // }
-
-    // for (var i = 0; i < 35; i++) {
-    //   for (var j = 0; j < 35; j++) {
-    //     ctx.fillStyle =
-    //       'rgb(' +
-    //       Math.floor(300 - 10 * i) +
-    //       ', ' +
-    //       Math.floor(255 - 10 * j) +
-    //       ', 0)';
-    //     ctx.fillRect(j * 70, i * 30, 30, 30);
-    //   }
-    // }
-
-    ctx.fillStyle = '#990000';
-    ctx.fillRect(0, 0, 250, 250);
-    ctx.fillStyle = '#3399cc';
-    ctx.fillRect(250, 0, 250, 250);
-    ctx.fillStyle = '#EDC9AF';
-    ctx.fillRect(0, 250, 250, 250);
-    ctx.fillStyle = '#669933';
-    ctx.fillRect(250, 250, 250, 250);
-    ctx.fillStyle = '#FFF';
-  
+    ctx.fillStyle = '#339999'
+    ctx.fillRect(25, 25, 500, 500);   
+    ctx.save();                  
+   
+    ctx.fillStyle = '#cc6633';      
+    ctx.fillRect(25, 25, 300, 275); 
+    ctx.save();                  
     
-    ctx.globalAlpha = 0.050;
+    ctx.fillStyle = '#FFF';      
+    ctx.globalAlpha = 0.5; 
+    ctx.fillRect(10, 10, 230, 210);   
   
-    
-    for (var i = 0; i < 30; i++) {
-      ctx.beginPath();
-      ctx.arc(250, 250, 10 + 10 * i, 0, Math.PI * 2, true);
-      ctx.fill();
-    }
+    ctx.restore();               
+    ctx.fillRect(50, 50, 75, 75);   
   
-
+    ctx.restore();               
+    ctx.fillRect(75, 75, 50, 50);   
+  
     // !!! IMPLEMENT ME
     // compute connected components
     // draw edges
