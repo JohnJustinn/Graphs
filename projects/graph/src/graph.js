@@ -1,3 +1,13 @@
+// Hex Color Function 
+
+function randomColor(hex = '') {
+  if (hex.length === 6) return '#' + hex;
+
+  const hexSection = ((Math.random() * 240) | 0).toString(16);
+  hex += (hexSection.length === 1) ? '0' + hexSection : hexSection;
+  return randomColor(hex);
+}
+
 /**
  * Edge
  */
@@ -19,6 +29,12 @@ export class Vertex {
     this.edges = [];
     this.pos = pos;
   }
+  // constructor() {
+  //   this.edges = [];
+  //   this.fillColor = 'white';
+  //   this.parent = null;
+  //   this.visited = false;
+  // }
 }
 
 /**
@@ -135,7 +151,54 @@ export class Graph {
    * BFS
    */
   bfs(start) {
+
+    // Psuedo-Code for BFS:
+
+    // 1. Pick a Vertex upon which to begin
+    // 2. Push it to a Queue List of visited vertexes
+    // 3. Go to first item in Queue List, check Edges for which it connects
+    // 4. If visited, pass over
+    // 5. If not not visited, add to destination Queue, mark visited
+    // 6. Mark each node as parent according its placement in Queue
+    // 7. Move to next edge unless all edges accounted for
+    // 8. When array includes all vertexes, BFS complete
+  
     // !!! IMPLEMENT ME
+
+    const queue = [start];
+    let group = randomColor();
+
+    while (queue.length > 0) {
+      const currentNode = queue[0];
+
+      if (currentNode.fillColor === 'white')
+        currentNode.fillColor = group;
+
+      currentNode.edges.forEach(edge => {
+        const { destination } = edge;
+
+        if (destination.fillColor === 'white') {
+          queue.push(destination);
+          console.log(queue);
+          destination.fillColor = group;
+        }
+
+        destination.parent = currentNode;
+
+      });
+
+      queue.shift();
+      if (queue.length === 0) {
+        for (let i = 0; i < this.vertexes.length; i++) {
+          if (this.vertexes[i].fillColor === 'white') {
+            group = randomColor();
+            queue.push(this.vertexes[i]);
+            break;
+          }
+        }
+      }
+    }
+
   }
 
   /**

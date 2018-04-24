@@ -90,13 +90,33 @@ class App extends Component {
     // use the graph randomize() method
 
     this.state.graph.randomize(3, 2, 150, 0.6);
+    console.log(this.state.graph);
+  }
+    
+  generateGraph = () => {
+    const state = {
+      graph: new Graph()
+    };
+    state.graph.randomize(3, 2, 150, 0.6);
+    this.setState(state);
+  }
     // this.state.graph.dump();
+
+  doBreadthFirstSearch = () => {
+    const state = {
+      graph: this.state.graph
+    };
+    this.setState(state);
+    this.state.graph.bfs(this.state.graph.vertexes[0]);
   }
 
   render() {
     return (
       <div className="App">
-        <GraphView graph={this.state.graph} />
+        <GraphView graph={this.state.graph}></GraphView>
+        <br/>
+        <button onClick={ this.generateGraph }>Regenerate Graph</button>
+        <button onClick={ this.doBreadthFirstSearch }>Breadth First Search</button>
       </div>
     );
   }
