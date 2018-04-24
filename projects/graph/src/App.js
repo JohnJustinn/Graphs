@@ -3,8 +3,8 @@ import { Graph } from './graph';
 import './App.css';
 
 // !!! IMPLEMENT ME
-const canvasWidth = 640;
-const canvasHeight = 480;
+const canvasWidth = 750;
+const canvasHeight = 600;
 
 /**
  * GraphView
@@ -32,27 +32,34 @@ class GraphView extends Component {
     let ctx = canvas.getContext('2d');
 
     // Clear it
-    // ctx.fillStyle = '#ccff99';
-    // ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+    ctx.fillStyle = 'Lightblue';
+    ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
-    ctx.fillStyle = '#339999'
-    ctx.fillRect(25, 25, 500, 500);   
-    ctx.save();                  
-   
-    ctx.fillStyle = '#cc6633';      
-    ctx.fillRect(25, 25, 300, 275); 
-    ctx.save();                  
+    const vertexes = this.props.graph.vertexes;
+    const radius = 10;
+
+    for(let vertex of vertexes) {
+      for (let edge of vertex.edges) {
+        ctx.beginPath();
+        ctx.moveTo(vertex.pos.x, vertex.pos.y);
+        ctx.lineTo(edge.destination.pos.x, edge.destination.pos.y);
+        ctx.stroke();
+      }
+    }
+
+    for (let vertex of vertexes){
+    ctx.beginPath();
+    ctx.arc(vertex.pos.x, vertex.pos.y, radius, 0, 2 * Math.PI);
+    ctx.fillStyle = 'white';
+    ctx.fill();
+    ctx.stroke();
     
-    ctx.fillStyle = '#FFF';      
-    ctx.globalAlpha = 0.5; 
-    ctx.fillRect(10, 10, 230, 210);   
-  
-    ctx.restore();               
-    ctx.fillRect(50, 50, 75, 75);   
-  
-    ctx.restore();               
-    ctx.fillRect(75, 75, 50, 50);   
-  
+    ctx.font = '12px Arial';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = 'black';
+    ctx.fillText(vertex.value, vertex.pos.x, vertex.pos.y);
+  }
     // !!! IMPLEMENT ME
     // compute connected components
     // draw edges
@@ -81,6 +88,9 @@ class App extends Component {
 
     // !!! IMPLEMENT ME
     // use the graph randomize() method
+
+    this.state.graph.randomize(3, 2, 150, 0.6);
+    // this.state.graph.dump();
   }
 
   render() {
